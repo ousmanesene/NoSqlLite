@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<style>
+			.cell{
+				fill:rgb(0,0,255);
+				stroke-width:3;
+				stroke:rgb(0,0,0);	
+			}
+		</style>
+	</head>
+	<body>
+		<svg width="400" height="400">
+			<defs>
+				<path id="path1" fill="#000" d="M20,20 a1,1 0 0,0 100,0"/>
+			</defs>
+			<use xlink:href="#path1" fill="none" stroke="red"  />
+			<text x="0" y="100" style="fill:red;">
+			    <textPath>I love SVG I love SVG</textPath>
+			</text>
+			<rect x="1" y="1" width="200" height="200" fill="none" stroke="blue" stroke-width="2" />
+		</svg>
+	</body>
+</html>

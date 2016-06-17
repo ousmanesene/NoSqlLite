@@ -1,0 +1,23 @@
+<root>
+	<auth>
+		<db id="1" name="mysql_db" type="MySQL">
+			<login>root</login>
+			<password>root</password>
+			<host>localhost</host>
+			<port>3306</port>
+		</db>
+		<db id="2" name="couch_db" type="CouchDB">
+			<login>root</login>
+			<password>root</password>
+			<host>localhost</host>
+			<port>5984</port>
+		</db>
+	</auth>
+	<db id="1" name="mysql_db">
+		<users>
+			<id/>
+			<rel target_db="couch_db" target_key="id">
+			<rel target_db="couch_db" target_key="rev">
+		</users>
+	</db>
+</root>

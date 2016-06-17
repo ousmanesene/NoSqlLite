@@ -1,0 +1,77 @@
+<?php
+	abstract class OSSAgent extends Thread
+	{
+		private $maxWork;
+		private $organisation;
+		private $environnement;
+		private $interaction;
+
+		public function __construct($id, $login, $password)
+		{
+			$this->maxWork = 100;
+			$this->organisation = new Organisation($id, $login, $password);
+			$this->environnement = new Environnement($id, $login, $password);
+			$this->interaction = new Interaction($id, $login, $password, $this->organisation, $this->environnement);
+		}
+
+		public function work()
+		{
+			while ($this->environnement->hasWorkNow() && $this->organisation->canWork())
+			{
+				$workAmount = $this->environnement->getWorkAmount();
+				if ($workAmount > $this->maxWork)
+					$this->cloneAgent($workAmount);
+				else
+					$this->fiveWs($this->environnement->getJob());
+			}
+		}
+
+		public function fiveWs($job)
+		{
+			if ($this->organisation->hasRight($job) && $this->environnement->canModify($job))
+				call_user_func_array(array($this, $this->environnement->getJobName($job)), $this->environnement->getJobParam($job));
+			else
+				$this->interaction->respond($job, 'fiveWs');
+		}
+
+		public function cloneAgent($workAmount)
+		{
+			$oldMaxWork = $this->maxWork;
+			$nbClone = (int) ($workAmount / $oldMaxWork);
+			$this->maxWork = $workAmount * 2;
+			$troopers = $this->getTroopers($nbClone);
+			
+			foreach ($troopers as $clone)
+				$clone->start();
+			$this->waitTroopers();
+			
+			$this->maxWork = $oldMaxWork;
+		}
+
+		public function getTroopers($nbClone)
+		{
+			$troopers = array();
+
+			for ($i = 0; $i < $nbClone; $i++)
+				$troopers[] = clone $this;
+
+			return ($troopers);
+		}
+		
+		public function waitTroopers()
+		{
+			$isTerminated = true;
+
+			do
+			{
+				foreach ($troopers as $clone)
+					if ($clone->isTerminated() === false)
+						$isTerminated = false;
+			}while (!$isTerminated);
+		}
+
+		public function run(){$this->work();}
+		public function setMaxWork($maxWork){$this->maxWork = ($maxWork > 0) ? $maxWork : 1;}
+		public function getMaxWork(){return ($this->maxWork);}
+	}
+?>
