@@ -1,5 +1,5 @@
 {
-	"name": "rainbow/jsonToHtml",
+	"name": "rainbow-PHP/jsonToHtml",
     "description": "Template engine based on json",
 	"version": "v1.0.0-alpha1",
 	"minimum-stability": "dev",
@@ -14,8 +14,8 @@
         "mustache/mustache": "~2.5"
     },
     "autoload": {
-        "psr-0": {
-            "jsonToHtml": "src"
+        "files": {
+            "files": ["src/main.php"]
         }
     }
 }
