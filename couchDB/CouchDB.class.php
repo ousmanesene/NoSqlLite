@@ -113,5 +113,16 @@
 			$this->lastResult = $result;
 			return($result);
 		}
+
+		public function replicate($database, $target, $options = array()){
+			$url = $this->url.'_replicate';
+			$options['source'] = $database;
+			$options['target'] = $target;
+			$resultJson = $this->mCurl->myCurl($url, 'POST', json_encode($options));
+			//echo $resultJson['content'], "\n";
+			$result = json_decode($resultJson['content'], true);
+			$this->lastResult = $result;
+			return($result);
+		}
 	}
 ?>
