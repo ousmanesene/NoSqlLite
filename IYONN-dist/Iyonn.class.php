@@ -42,7 +42,7 @@
         public function renderView($name, $data){
             Mustache_Autoloader::register();
             $mustache = new Mustache_Engine(array(
-                'cache' => dirname(__FILE__).'/tmp/cache/mustache',
+                'cache' => APPLICATION_DIR.'/tmp/cache/mustache',
                 'cache_lambda_templates' => true,
                 'loader' => new Mustache_Loader_FilesystemLoader('templates'),
                 'escape' => function($value) {

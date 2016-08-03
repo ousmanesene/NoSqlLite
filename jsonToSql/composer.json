@@ -1,0 +1,18 @@
+{
+	"name": "rainbow-PHP/jsonToSQL",
+    "description": "Sql ORM based on json",
+	"version": "v1.0.0-alpha1",
+	"minimum-stability": "dev",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Ousmane SENE",
+			"email": "contact@ousmanesene.com"
+		}
+	],
+    "autoload": {
+        "files": {
+            "files": ["src/main.php"]
+        }
+    }
+}
